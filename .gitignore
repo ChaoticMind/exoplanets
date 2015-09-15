@@ -1,2 +1,4 @@
 scripts/*.txt
 scripts/*.csv
+playground/*.txt
+*.pyc

@@ -62,13 +62,15 @@ def parse_ascii(src, skip_err_margins):
     ret = []
     if skip_err_margins:
         def get_data(param):
-            return getattr(x, param)
+            return float(getattr(x, param))
     else:
         def get_data(param):
             ret = OrderedDict()
-            ret['value'] = getattr(x, param)
-            ret['error_plus'] = getattr(x, '{}_{}'.format(param, 'erru'))
-            ret['error_minus'] = getattr(x, '{}_{}'.format(param, 'errd'))
+            ret['value'] = float(getattr(x, param))
+            ret['error_plus'] = float(
+                getattr(x, '{}_{}'.format(param, 'erru')))
+            ret['error_minus'] = float(
+                getattr(x, '{}_{}'.format(param, 'errd')))
             return ret
 
     for line in src:
@@ -78,7 +80,7 @@ def parse_ascii(src, skip_err_margins):
         x = Properties(*line.split())
         row = OrderedDict()
         row['system'] = x.system
-        row['period'] = x.Porb
+        row['period'] = float(x.Porb)
         row['eccentricity'] = get_data('ecc')
         row['semimajor_AU'] = get_data('a_AU')
 
